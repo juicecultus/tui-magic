@@ -2,3 +2,6 @@
 *.swp
 *.swo
 *~
+*.nmconnection
+wpa_test.conf
+wifi_setup.sh

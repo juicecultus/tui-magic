@@ -177,7 +177,7 @@ export LESS_TERMCAP_so=$'\e[1;44;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;36m'
 
-# --- Auto-start tmux on login (but not inside tmux or over scp) ---
-if command -v tmux &>/dev/null && [ -z "$TMUX" ] && [ -n "$SSH_CONNECTION" ] && [[ $- == *i* ]]; then
+# --- Auto-start tmux on login (console + SSH, but not inside tmux or over scp) ---
+if command -v tmux &>/dev/null && [ -z "$TMUX" ] && [[ $- == *i* ]]; then
     tmux new-session -A -s main
 fi
