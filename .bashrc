@@ -18,7 +18,10 @@ shopt -s globstar 2>/dev/null
 shopt -s cdspell
 
 # --- Colors ---
-export TERM="xterm-256color"
+# Only override TERM on SSH/X sessions, not on Linux console (tty)
+if [ "$TERM" != "linux" ]; then
+    export TERM="xterm-256color"
+fi
 
 # Matrix green color palette
 C_RESET='\[\e[0m\]'

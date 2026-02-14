@@ -4,17 +4,33 @@
 
 ---
 
-## Think of it Like a TV Remote
+## ⚠️ THE MOST IMPORTANT THING TO KNOW
 
-Your ThinkPad terminal works like a TV with **channels**. Each channel is a different app (music player, file browser, system monitor, etc.). The **remote control button** is:
+Everything in tmux uses a **two-step** shortcut. You are **NOT** pressing all keys at once.
 
-### **Ctrl-a** = The Magic Button
+### How it works — example: opening Matrix
 
-This means: **hold the `Ctrl` key and press `a`**, then **let go of both**, then press the next key.
+```
+Step 1:  Hold Ctrl + press a    (then RELEASE BOTH keys)
+Step 2:  Press m                 (by itself, just the m key)
+```
 
-It's always a **two-step** action:
-1. **Press `Ctrl-a`** (hold Ctrl, tap a, release both)
-2. **Then press the shortcut key** (like `m` for matrix)
+### Another example: opening the file manager
+
+```
+Step 1:  Hold Ctrl + press a    (then RELEASE BOTH keys)
+Step 2:  Press n                 (by itself, just the n key)
+```
+
+### ❌ WRONG: Pressing Ctrl + a + m all at the same time
+### ✅ RIGHT: Ctrl+a first, let go, THEN press m
+
+Think of it like unlocking a door:
+1. **Turn the key** (Ctrl+a) — this tells tmux "I'm about to give you a command"
+2. **Open the door** (press the shortcut key) — this is the actual command
+
+> **On the ThinkPad X40 keyboard:** The `Ctrl` key is the second key from the
+> bottom-left corner. The very bottom-left key is `Fn` — don't use that one!
 
 ---
 
