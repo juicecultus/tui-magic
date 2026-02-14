@@ -1,0 +1,28 @@
+#!/bin/bash
+# Matrix screensaver — triggers cmatrix after idle timeout
+# Usage: screensaver [timeout_seconds]
+# Default: 300 seconds (5 minutes)
+
+TIMEOUT=${1:-300}
+
+echo "Matrix screensaver armed (${TIMEOUT}s idle timeout)"
+echo "Press Ctrl+C to disable"
+
+while true; do
+    idle=$(cat /sys/class/tty/tty0/active 2>/dev/null)
+    # Use xprintidle if X is running, otherwise use shell SECONDS trick
+    if command -v xprintidle &>/dev/null && [ -n "$DISPLAY" ]; then
+        idle_ms=$(xprintidle)
+        idle_s=$((idle_ms / 1000))
+    else
+        # Fallback: just sleep and run cmatrix in a loop
+        sleep "$TIMEOUT"
+        idle_s=$TIMEOUT
+    fi
+
+    if [ "$idle_s" -ge "$TIMEOUT" ]; then
+        cmatrix -ab -u 4 -C green
+        # After cmatrix exits (any keypress), reset timer
+    fi
+    sleep 5
+done

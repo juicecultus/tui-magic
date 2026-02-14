@@ -1,0 +1,26 @@
+#!/bin/bash
+# Dashboard layout for tmux — IBM ThinkPad X40
+# Creates a beautiful split layout with system info
+
+SESSION="dashboard"
+
+tmux kill-session -t "$SESSION" 2>/dev/null
+
+tmux new-session -d -s "$SESSION" -x 80 -y 24
+
+# Main pane: neofetch
+tmux send-keys -t "$SESSION" 'clear && neofetch' Enter
+
+# Split right: btop
+tmux split-window -h -t "$SESSION"
+tmux send-keys -t "$SESSION" 'btop' Enter
+
+# Split bottom-left: small cmatrix accent
+tmux select-pane -t "$SESSION:1.1"
+tmux split-window -v -t "$SESSION" -p 30
+tmux send-keys -t "$SESSION" 'cmatrix -ab -u 6 -C green' Enter
+
+# Focus on the btop pane
+tmux select-pane -t "$SESSION:1.2"
+
+tmux attach-session -t "$SESSION"

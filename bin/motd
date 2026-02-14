@@ -1,0 +1,43 @@
+#!/bin/bash
+# Custom MOTD for IBM ThinkPad X40
+
+GREEN='\e[38;5;46m'
+DGREEN='\e[38;5;22m'
+DIM='\e[38;5;240m'
+RESET='\e[0m'
+BOLD='\e[1m'
+
+clear
+echo -e "${DGREEN}"
+figlet -f small "ThinkPad X40" 2>/dev/null || echo "  ThinkPad X40"
+echo -e "${RESET}"
+
+# System info
+UPTIME=$(uptime -p 2>/dev/null | sed 's/up //')
+CPU_TEMP=$(cat /sys/class/thermal/thermal_zone0/temp 2>/dev/null | awk '{printf "%.0f", $1/1000}')
+MEM_USED=$(free -m | awk '/Mem:/ {print $3}')
+MEM_TOTAL=$(free -m | awk '/Mem:/ {print $2}')
+DISK_USED=$(df -h / | awk 'NR==2 {print $3"/"$2}')
+LOAD=$(cat /proc/loadavg | awk '{print $1}')
+IP=$(hostname -I 2>/dev/null | awk '{print $1}')
+
+echo -e "${GREEN}${BOLD}  System${RESET}"
+echo -e "${DIM}  ──────────────────────────────────────────────────${RESET}"
+echo -e "${GREEN}  Uptime   ${DIM}│${GREEN} ${UPTIME}${RESET}"
+echo -e "${GREEN}  Load     ${DIM}│${GREEN} ${LOAD}${RESET}"
+if [ -n "$CPU_TEMP" ]; then
+echo -e "${GREEN}  CPU Temp ${DIM}│${GREEN} ${CPU_TEMP}°C${RESET}"
+fi
+echo -e "${GREEN}  Memory   ${DIM}│${GREEN} ${MEM_USED}M / ${MEM_TOTAL}M${RESET}"
+echo -e "${GREEN}  Disk /   ${DIM}│${GREEN} ${DISK_USED}${RESET}"
+echo -e "${GREEN}  IP       ${DIM}│${GREEN} ${IP}${RESET}"
+echo -e "${DIM}  ──────────────────────────────────────────────────${RESET}"
+echo ""
+echo -e "${GREEN}${BOLD}  Quick Launch${RESET} ${DIM}(Ctrl-a prefix)${RESET}"
+echo -e "${DIM}  ──────────────────────────────────────────────────${RESET}"
+echo -e "${DGREEN}  m${DIM}=matrix  ${DGREEN}b${DIM}=btop  ${DGREEN}n${DIM}=ranger  ${DGREEN}t${DIM}=tig  ${DGREEN}D${DIM}=dashboard${RESET}"
+echo -e "${DGREEN}  v${DIM}=cava   ${DGREEN}M${DIM}=cmus  ${DGREEN}c${DIM}=calcurse ${DGREEN}R${DIM}=rss  ${DGREEN}W${DIM}=web${RESET}"
+echo -e "${DGREEN}  T${DIM}=clock  ${DGREEN}B${DIM}=bonsai ${DGREEN}g${DIM}=disk     ${DGREEN}i${DIM}=net  ${DGREEN}w${DIM}=wifi${RESET}"
+echo -e "${DIM}  ──────────────────────────────────────────────────${RESET}"
+echo -e "${DIM}  Ctrl-a ?${RESET}${DGREEN} for full cheatsheet${RESET}"
+echo ""
